@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Python Readiness - Python support table for most popular Python packages{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <h1>Python Readiness</h1>
+    <p class="text-center">Python support graph for specific Python versions for the most popular Python packages!</p>
+    <h2>What is this about?</h2>
+    <p>
+        Some versions of Python are <a href="https://devguide.python.org/devcycle/#end-of-life-branches">past their End Of Life</a>, and some are relatively new. This site shows support for specific Python versions for the most downloaded packages on <a href="https://pypi.org/">PyPI</a>.
+    </p>
+    <ul>
+    {% for major, status in majors.items() %}
+      <li>
+        <a href="./{{major}}/">
+          Python {{ major }} {{ "(Past EOL)" if status.eol else ""}}{{ "(Alpha)" if status.alpha else ""}}
+        </a>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

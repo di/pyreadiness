@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript">
+    function toggle(button){
+      var nextState = button.dataset.state == "Show" ? "Hide" : "Show";
+
+      if (button.dataset.state == "Show") {
+        document.querySelectorAll(".btn-success").forEach((el) => {
+          el.classList.remove("hidden");
+        })
+      } else {
+        document.querySelectorAll(".btn-success").forEach((el) => {
+          el.classList.add("hidden");
+        })
+      }
+
+      button.dataset.state = nextState;
+      button.textContent = nextState + ' Python {{ major }} {{ "unsupported" if status.eol else "compatible"}}';
+
+      document.querySelectorAll(".list").forEach((list) => {
+        var items = list.querySelectorAll(":not(.hidden)");
+        if (items.length) {
+          items.forEach((el) => {
+            el.classList.remove("btn-first-child", "btn-last-child")
+          })
+          items[0].classList.add("btn-first-child");
+          items[items.length-1].classList.add("btn-last-child");
+        }
+      })
+    };
+  </script>
+  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body{margin-top:15px;}
+    a.btn, h1{text-align: center;}
+    a.btn-last-child, canvas, body{margin-bottom:15px;}
+    a.btn {border-bottom-width: 0; border-radius: 0; width: 100%}
+    a.btn-first-child{border-top-left-radius: 5px; border-top-right-radius: 5px;}
+    a.btn-last-child{border-bottom-width: 1px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;}
+    pre {text-align: left;}
+    footer{text-align: center;}
+    .center-block {max-height: 450px}
+    .hidden {display: none}
+  </style>
+  <title>Python {{ major }} Readiness - Python {{ major }} support table for most popular Python packages</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <h1>Python {{ major }} Readiness</h1>
+        <p class="text-center">Python {{ major }} support graph for the {{ results|length }} most popular Python packages!</p>
+        <h2>What is this about?</h2>
+        <p>
+        Python {{ major }} is <a href="https://devguide.python.org/devcycle/#end-of-life-branches">{{ "a version of Python that is past it's End Of Life" if status.eol else "a currently supported version of Python"}}</a>. This site shows Python {{ major }} support for the {{ results|length }} most downloaded packages on <a href="https://pypi.org/">PyPI</a>:
+        </p>
+        <ol>
+          {% if status.eol %}
+          <li><span class="text-success">Green</span> packages have dropped support for Python {{ major }};</li>
+          <li><span class="text-muted">White</span> packages still support Python {{ major }}.</li>
+          {% else %}
+          <li><span class="text-success">Green</span> packages support Python {{ major }};</li>
+          <li><span class="text-muted">White</span> packages don't explicity support Python {{ major }} yet.</li>
+          {% endif %}
+        </ol>
+        <h2>Package 'x' is white. What can I do?</h2>
+          {% if status.eol %}
+          <p>There can be many reasons a package is still supporting Python {{ major }}:</p>
+          <ul>
+            <li>
+              <p>If you are package maintainer, it's time to start dropping support (if you haven't already). <strong>Here is an in-depth guide to <a href="https://packaging.python.org/guides/dropping-older-python-versions/">Dropping support for older Python versions</a></strong>. If you are not able to give the time needed, please seek for help from the community.</p>
+            </li>
+            <li>
+              <p>If you are user of the package, send a friendly note to the package maintainer. Or fork it, and send a pull request to help move the project towards dropping Python {{ major }} support.</p>
+            </li>
+          </ul>
+          {% else %}
+          <p>There can be many reasons a package is not explicitly supporting Python {{ major }}:</p>
+          <ul>
+            <li>
+              <p>If you are package maintainer, it's time to start supporting Python {{ major }}. If you are not able to give the time needed, please seek for help from the community.</p>
+            </li>
+            <li>
+              <p>If you are user of the package, send a friendly note to the package maintainer. Or fork it, and send a pull request to help move the project towards Python {{ major }} support, by adding the classifier and ensuring the project is tested against Python {{ major }}.</p>
+            </li>
+          </ul>
+          {% endif %}
+        <h2>How do you identify Python {{ major }} support?</h2>
+        <p>
+          We look for the <tt>Programming Language :: Python :: {{ major }}</tt> classifier on the latest release of the project, via <a href="https://warehouse.readthedocs.io/api-reference/json/">PyPI's JSON API</a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 col-md-4">
+        <a id="show-hide" data-state="Hide" class="btn btn-default btn-first-child btn-last-child" onclick="toggle(this)">
+          {% if status.eol %}
+          Hide Python {{ major }} unsupported
+          {% else %}
+          Hide Python {{ major }} compatible
+          {% endif %}
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      {% for column in results|slice(3) %}
+      <div class="col-sm-4 col-md-4">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title text-center">
+              {% if loop.first %}
+              <span class="glyphicon glyphicon-list"></span> Top {{ column|length }}
+              {% else %}
+              <span class="glyphicon glyphicon-list"></span> Top {{ column|length * (loop.index - 1) }} - {{ column|length * loop.index }}
+              {% endif %}
+            </h3>
+          </div>
+        </div>
+        <div class="list">
+        {% for name, supports in column %}
+          <a class="btn btn-{{ "success" if supports else "default" }} {{ "btn-first-child" if loop.first }} {{ "btn-last-child" if loop.last}}" href="https://pypi.org/project/{{ name }}" style="display: inline-block;">
+            {{ name }} {{ "✓" if supports else "✗"}}
+          </a>
+        {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <h2>Thanks</h2>
+      <p>This is derivative work from <a href="http://py3readiness.org/">py3readiness.org</a>, a site that tracks general compatibility with Python 3. All the credits goes to <a href="https://github.com/chhantyal">chhantyal</a>.
+    <!-- fork me -->
+    <a href="https://github.com/di/pyreadiness"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+    <footer>
+      <p>Maintained by <a href="http://github.com/di">@di</a>, source on <a href="https://github.com/di/pyreadiness">GitHub</a>.</p>
+      <p>Last updated on <span class="date">{{ updated }}</span></p>
+    </footer>
+  </div>
+</body>
+</html>
+
