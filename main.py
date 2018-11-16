@@ -10,7 +10,7 @@ import jinja2
 PYPI_URL = "https://pypi.org/pypi/{name}/json"
 
 Status = collections.namedtuple(
-    "Status", ("eol", "alpha"), defaults=(False, False)
+    "Status", ("eol", "dev", "alpha", "beta", "rc"), defaults=(False,)*5
 )
 
 MAJORS = {
@@ -28,7 +28,7 @@ MAJORS = {
     "3.5": Status(),
     "3.6": Status(),
     "3.7": Status(),
-    "3.8": Status(alpha=True),
+    "3.8": Status(dev=True),
 }
 
 QUERY = """

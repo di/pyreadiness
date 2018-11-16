@@ -13,7 +13,12 @@
     {% for major, status in majors.items() %}
       <li>
         <a href="./{{major}}/">
-          Python {{ major }} {{ "(Past EOL)" if status.eol else ""}}{{ "(Alpha)" if status.alpha else ""}}
+          Python {{ major }}
+          {{ "(Past EOL)" if status.eol else ""}}
+          {{ "(In development)" if status.dev else ""}}
+          {{ "(Alpha)" if status.alpha else ""}}
+          {{ "(Beta)" if status.beta else ""}}
+          {{ "(Release candidate)" if status.rc else ""}}
         </a>
       </li>
     {% endfor %}
