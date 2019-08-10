@@ -68,7 +68,7 @@ def project_json(name):
 def supports(major, classifiers, status):
     return (
         f"Programming Language :: Python :: {major}" in classifiers
-    ) != status.eol
+    ) != (status.eol or status.dying)
 
 
 def fetch_top_projects():
