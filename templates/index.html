@@ -14,6 +14,7 @@
       <li>
         <a href="./{{major}}/">
           Python {{ major }}
+          {{ "(Nearing EOL)" if status.dying else ""}}
           {{ "(Past EOL)" if status.eol else ""}}
           {{ "(In development)" if status.dev else ""}}
           {{ "(Alpha)" if status.alpha else ""}}

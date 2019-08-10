@@ -7,10 +7,18 @@
     <p class="text-center">Python {{ major }} support graph for the {{ results|length }} most popular Python packages!</p>
     <h2>What is this about?</h2>
     <p>
-    Python {{ major }} is <a href="https://devguide.python.org/devcycle/#end-of-life-branches">{{ "a version of Python that is past it's End Of Life" if status.eol else "a currently supported version of Python"}}</a>. This site shows Python {{ major }} support for the {{ results|length }} most downloaded packages on <a href="https://pypi.org/">PyPI</a>:
+    Python {{ major }} is <a href="https://devguide.python.org/devcycle/#end-of-life-branches">
+        {% if status.eol %}
+            a version of Python that is past it's End Of Life
+        {% elif status.dying %}
+            a version of Python that is nearing it's End Of Life
+        {% else %}
+            a currently supported version of Python
+        {% endif %}
+    </a>. This site shows Python {{ major }} support for the {{ results|length }} most downloaded packages on <a href="https://pypi.org/">PyPI</a>:
     </p>
     <ol>
-      {% if status.eol %}
+      {% if status.eol or status.dying %}
       <li><span class="text-success">Green</span> packages have dropped support for Python {{ major }};</li>
       <li><span class="text-muted">White</span> packages still support Python {{ major }}.</li>
       {% else %}
@@ -19,7 +27,7 @@
       {% endif %}
     </ol>
     <h2>Package 'x' is white. What can I do?</h2>
-      {% if status.eol %}
+      {% if status.eol or status.dying %}
       <p>There can be many reasons a package is still supporting Python {{ major }}:</p>
       <ul>
         <li>
@@ -50,7 +58,7 @@
 <div class="row">
   <div class="col-sm-4 col-md-4">
     <a id="show-hide" data-state="Hide" class="btn btn-default btn-first-child btn-last-child" onclick="toggle(this)">
-      {% if status.eol %}
+      {% if status.eol or status.dying %}
       Hide Python {{ major }} unsupported
       {% else %}
       Hide Python {{ major }} compatible

@@ -10,7 +10,7 @@ import jinja2
 PYPI_URL = "https://pypi.org/pypi/{name}/json"
 
 Status = collections.namedtuple(
-    "Status", ("eol", "dev", "alpha", "beta", "rc"), defaults=(False,)*5
+    "Status", ("dying", "eol", "dev", "alpha", "beta", "rc"), defaults=(False,)*6
 )
 
 MAJORS = {
@@ -19,7 +19,7 @@ MAJORS = {
     "2.4": Status(eol=True),
     "2.5": Status(eol=True),
     "2.6": Status(eol=True),
-    "2.7": Status(),
+    "2.7": Status(dying=True),
     "3.0": Status(eol=True),
     "3.1": Status(eol=True),
     "3.2": Status(eol=True),
