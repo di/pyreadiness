@@ -10,7 +10,7 @@ import jinja2
 PYPI_URL = "https://pypi.org/pypi/{name}/json"
 
 Status = collections.namedtuple(
-    "Status", ("dying", "eol", "dev", "alpha", "beta", "rc"), defaults=(False,)*6
+    "Status", ("dying", "eol", "dev", "alpha", "beta", "rc"), defaults=(False,) * 6
 )
 
 MAJORS = {
@@ -68,9 +68,9 @@ def project_json(name):
 
 
 def supports(major, classifiers, status):
-    return (
-        f"Programming Language :: Python :: {major}" in classifiers
-    ) != (status.eol or status.dying)
+    return (f"Programming Language :: Python :: {major}" in classifiers) != (
+        status.eol or status.dying
+    )
 
 
 def fetch_top_projects():
@@ -87,9 +87,7 @@ def fetch_top_projects():
 
 def fetch_classifiers(names):
     print("Fetching classifiers")
-    return {
-        name: set(project_json(name)["info"]["classifiers"]) for name in names
-    }
+    return {name: set(project_json(name)["info"]["classifiers"]) for name in names}
     print("Fetching classifiers complete")
 
 
@@ -116,6 +114,4 @@ def run(request):
             ),
         )
 
-    write_file(
-        "index.html", index_template.render(updated=updated, majors=MAJORS)
-    )
+    write_file("index.html", index_template.render(updated=updated, majors=MAJORS))
