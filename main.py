@@ -75,20 +75,26 @@ def supports(major, classifiers, status):
 
 def fetch_top_projects():
     print("Fetching top projects")
-    return {
+    projects = {
         major: [
             row["project"]
             for row in bq_client.query(QUERY.format(major=major)).result()
         ]
         for major in ["2", "3"]
     }
+    print(projects)
     print("Fetching top projects complete")
+    return projects
 
 
 def fetch_classifiers(names):
     print("Fetching classifiers")
-    return {name: set(project_json(name)["info"]["classifiers"]) for name in names}
+    classifiers = {
+        name: set(project_json(name)["info"]["classifiers"]) for name in names
+    }
+    print(classifiers)
     print("Fetching classifiers complete")
+    return classifiers
 
 
 def write_file(filename, contents, content_type="text/html"):
@@ -107,6 +113,7 @@ def run(request):
             (name, supports(major, classifiers[name], status))
             for name in projects[major[0]]
         ]
+        print(major, status, results)
         write_file(
             f"{major}/index.html",
             major_template.render(
