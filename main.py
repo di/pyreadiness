@@ -37,12 +37,12 @@ QUERY = """
 SELECT
   file.project,
   COUNT(*) AS total_downloads
-FROM `the-psf.pypi.downloads*`
+FROM
+  `bigquery-public-data.pypi.file_downloads`
 WHERE
-  _TABLE_SUFFIX BETWEEN
-  FORMAT_DATE("%Y%m%d", DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)) AND
-  FORMAT_DATE("%Y%m%d", DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) AND
-  details.python LIKE '{major}.%'
+  DATE(timestamp) BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+  AND DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
+  AND details.python LIKE '{major}.%'
 GROUP BY
   file.project
 ORDER BY
