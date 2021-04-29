@@ -9,12 +9,12 @@
     <p>
     Python {{ major }} is <a href="https://devguide.python.org/devcycle/#end-of-life-branches">
         {% if status.eol %}
-            a version of Python that is past it's End Of Life
+            a version of Python that is past its End Of Life
         {% elif status.dying %}
-            a version of Python that is nearing it's End Of Life
+            a version of Python that is nearing its End Of Life
         {% else %}
             a currently supported version of Python
-        {% endif %}
+        {% endif -%}
     </a>. This site shows Python {{ major }} support for the {{ results|length }} most downloaded packages on <a href="https://pypi.org/">PyPI</a>:
     </p>
     <ol>
