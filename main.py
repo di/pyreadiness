@@ -1,7 +1,9 @@
+import os
 import collections
 import datetime
 import json
 import urllib.request
+from pathlib import Path
 
 from google.cloud import bigquery
 from google.cloud import storage
@@ -103,7 +105,7 @@ def write_file(filename, contents, content_type="text/html"):
     blob.upload_from_string(contents, content_type)
 
 
-def run(request):
+def run(request, write_file=write_file):
     updated = datetime.datetime.now()
     projects = fetch_top_projects()
     classifiers = fetch_classifiers(set().union(*projects.values()))
@@ -122,3 +124,15 @@ def run(request):
         )
 
     write_file("index.html", index_template.render(updated=updated, majors=MAJORS))
+
+
+def write_local_file(filename, contents, content_type="text/html"):
+    print(f"Writing file '{filename}' locally")
+    path = Path("docs") / filename
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        f.write(contents)
+
+
+if __name__ == "__main__":
+    run(None, write_file=write_local_file)
