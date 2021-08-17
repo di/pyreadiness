@@ -28,11 +28,11 @@ MAJORS = {
     "3.3": Status(eol=True),
     "3.4": Status(eol=True),
     "3.5": Status(eol=True),
-    "3.6": Status(),
+    "3.6": Status(dying=True),
     "3.7": Status(),
     "3.8": Status(),
     "3.9": Status(),
-    "3.10": Status(dev=True),
+    "3.10": Status(rc=True),
 }
 
 QUERY = """
