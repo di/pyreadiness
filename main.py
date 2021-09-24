@@ -116,10 +116,15 @@ def run(request, write_file=write_file):
             for name in projects[major[0]]
         ]
         print(major, status, results)
+        do_support = sum(result[1] for result in results)
         write_file(
             f"{major}/index.html",
             major_template.render(
-                results=results, major=major, status=status, updated=updated
+                results=results,
+                major=major,
+                status=status,
+                updated=updated,
+                do_support=do_support,
             ),
         )
 
