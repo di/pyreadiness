@@ -18,12 +18,15 @@
     </a>. This site shows Python {{ major }} support for the {{ results|length }} most downloaded packages on <a href="https://pypi.org/">PyPI</a>:
     </p>
     <ol>
+      {%- set no_support = results|length - do_support -%}
+      {%- set do_support_percent = (do_support / results|length * 100)|round(1) -%}
+      {%- set no_support_percent = (no_support / results|length * 100)|round(1) -%}
       {% if status.eol or status.dying %}
-      <li><span class="text-success">Green</span> packages have dropped support for Python {{ major }};</li>
-      <li><span class="text-muted">White</span> packages still support Python {{ major }}.</li>
+      <li>{{ do_support }} <span class="text-success">green</span> packages ({{ do_support_percent }}%) have dropped support for Python {{ major }};</li>
+      <li>{{ no_support }} <span class="text-muted">white</span> packages ({{ no_support_percent }}%) still support Python {{ major }}.</li>
       {% else %}
-      <li><span class="text-success">Green</span> packages support Python {{ major }};</li>
-      <li><span class="text-muted">White</span> packages don't explicity support Python {{ major }} yet.</li>
+      <li>{{ do_support }} <span class="text-success">green</span> packages ({{ do_support_percent }}%) support Python {{ major }};</li>
+      <li>{{ no_support }} <span class="text-muted">white</span> packages ({{ no_support_percent }}%) don't explicitly support Python {{ major }} yet.</li>
       {% endif %}
     </ol>
     <h2>Package 'x' is white. What can I do?</h2>
@@ -50,7 +53,7 @@
       {% endif %}
     <h2>How do you identify Python {{ major }} support?</h2>
     <p>
-      We look for the <tt>Programming Language :: Python :: {{ major }}</tt> classifier on the latest release of the project, via <a href="https://warehouse.readthedocs.io/api-reference/json/">PyPI's JSON API</a>.
+      We look for the <code>Programming Language :: Python :: {{ major }}</code> classifier on the latest release of the project, via <a href="https://warehouse.readthedocs.io/api-reference/json/">PyPI's JSON API</a>.
     </p>
   </div>
 </div>
