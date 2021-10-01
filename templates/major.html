@@ -1,6 +1,36 @@
 {% extends "base.html" %}
 {% block title %}Python {{ major }} Readiness - Python {{ major }} support table for most popular Python packages{% endblock %}
 {% block content %}
+<script type="text/javascript">
+  function toggle(button) {
+    var nextState = button.dataset.state === "Show" ? "Hide" : "Show";
+
+    if (button.dataset.state === "Show") {
+      document.querySelectorAll(".btn-success").forEach((el) => {
+        el.classList.remove("hidden");
+      });
+    } else {
+      document.querySelectorAll(".btn-success").forEach((el) => {
+        el.classList.add("hidden");
+      });
+    }
+
+    button.dataset.state = nextState;
+    button.textContent = nextState + ' Python {{ major }} {{ "unsupported" if status.eol else "compatible"}}';
+
+    document.querySelectorAll(".list").forEach((list) => {
+      var items = list.querySelectorAll(":not(.hidden)");
+
+      if (items.length) {
+        items.forEach((el) => {
+          el.classList.remove("btn-first-child", "btn-last-child");
+        });
+        items[0].classList.add("btn-first-child");
+        items[items.length-1].classList.add("btn-last-child");
+      }
+    });
+  }
+</script>
 <div class="row">
   <div class="col-sm-12 col-md-12">
     <h1>Python {{ major }} Readiness</h1>
