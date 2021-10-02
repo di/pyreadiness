@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Python {{ major }} Readiness - Python {{ major }} support table for most popular Python packages{% endblock %}
-{% block content %}
+{% block head %}
 <script type="text/javascript">
   function toggle(button) {
     var nextState = button.dataset.state === "Show" ? "Hide" : "Show";
@@ -31,6 +30,9 @@
     });
   }
 </script>
+{% endblock %}
+{% block title %}Python {{ major }} Readiness - Python {{ major }} support table for most popular Python packages{% endblock %}
+{% block content %}
 <div class="row">
   <div class="col-sm-12 col-md-12">
     <h1>Python {{ major }} Readiness</h1>
