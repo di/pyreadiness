@@ -16,6 +16,35 @@
     footer{text-align: center;}
     .center-block {max-height: 450px}
     .hidden {display: none}
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: #ccc;
+        background: black;
+      }
+      code {
+        color: #ccc;
+        background: #222;
+      }
+      .panel-info>.panel-heading {
+        color: #d9edf7;
+        background-color: #3a87ad;
+        border-color: #0d7aba;
+      }
+      .btn-default {
+        color: #ccc;
+        background: black;
+        border-color: #222;
+      }
+      .btn-default:hover,
+      .btn-default:focus,
+      .btn-default:active,
+      .btn-default.active,
+      .open.dropdown-toggle.btn-default {
+        color: #ccc;
+        background: #222;
+        border-color: #333;
+      }
+    }
   </style>
   {% block head %}{% endblock %}
   <title>{% block title %}{% endblock %}</title>
