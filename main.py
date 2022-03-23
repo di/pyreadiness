@@ -55,8 +55,6 @@ LIMIT
 """
 
 bq_client = bigquery.Client()
-gcs_client = storage.Client()
-bucket = gcs_client.bucket("www.pyreadiness.org")
 
 templateLoader = jinja2.FileSystemLoader(searchpath="./templates/")
 templateEnv = jinja2.Environment(loader=templateLoader)
@@ -100,13 +98,15 @@ def fetch_classifiers(names):
     return classifiers
 
 
-def write_file(filename, contents, content_type="text/html"):
-    print(f"Writing file '{filename}'")
-    blob = bucket.blob(filename)
-    blob.upload_from_string(contents, content_type)
+def write_local_file(filename, contents, content_type="text/html"):
+    print(f"Writing file '{filename}' locally")
+    path = Path("docs") / filename
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        f.write(contents)
 
 
-def run(request, write_file=write_file):
+if __name__ == "__main__":
     updated = datetime.datetime.now()
     projects = fetch_top_projects()
     classifiers = fetch_classifiers(set().union(*projects.values()))
@@ -118,7 +118,7 @@ def run(request, write_file=write_file):
         ]
         print(major, status, results)
         do_support = sum(result[1] for result in results)
-        write_file(
+        write_local_file(
             f"{major}/index.html",
             major_template.render(
                 results=results,
@@ -129,16 +129,6 @@ def run(request, write_file=write_file):
             ),
         )
 
-    write_file("index.html", index_template.render(updated=updated, majors=MAJORS))
-
-
-def write_local_file(filename, contents, content_type="text/html"):
-    print(f"Writing file '{filename}' locally")
-    path = Path("docs") / filename
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w") as f:
-        f.write(contents)
-
-
-if __name__ == "__main__":
-    run(None, write_file=write_local_file)
+    write_local_file(
+        "index.html", index_template.render(updated=updated, majors=MAJORS)
+    )
