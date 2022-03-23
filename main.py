@@ -6,7 +6,6 @@ import urllib.request
 from pathlib import Path
 
 from google.cloud import bigquery
-from google.cloud import storage
 import jinja2
 
 PYPI_URL = "https://pypi.org/pypi/{name}/json"
