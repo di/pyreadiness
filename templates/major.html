@@ -2,7 +2,7 @@
 {% block head %}
 <script type="text/javascript">
   function toggle(button) {
-    var nextState = button.dataset.state === "Show" ? "Hide" : "Show";
+    let nextState = button.dataset.state === "Show" ? "Hide" : "Show";
 
     if (button.dataset.state === "Show") {
       document.querySelectorAll(".btn-success").forEach((el) => {
@@ -18,7 +18,7 @@
     button.textContent = nextState + ' Python {{ major }} {{ "unsupported" if status.eol else "compatible"}}';
 
     document.querySelectorAll(".list").forEach((list) => {
-      var items = list.querySelectorAll(":not(.hidden)");
+      let items = list.querySelectorAll(":not(.hidden)");
 
       if (items.length) {
         items.forEach((el) => {
