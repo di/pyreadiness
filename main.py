@@ -28,7 +28,7 @@ MAJORS = {
     "3.4": Status(eol=True),
     "3.5": Status(eol=True),
     "3.6": Status(eol=True),
-    "3.7": Status(),
+    "3.7": Status(eol=True),
     "3.8": Status(),
     "3.9": Status(),
     "3.10": Status(),
