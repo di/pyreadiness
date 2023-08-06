@@ -16,7 +16,7 @@ Status = collections.namedtuple(
 
 MAJORS = {
     # version: (past_eol, alpha)
-    "3.12": Status(beta=True),
+    "3.12": Status(rc=True),
     "3.11": Status(),
     "3.10": Status(),
     "3.9": Status(),
