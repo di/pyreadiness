@@ -55,28 +55,26 @@ LIMIT
   360
 """
 
-bq_client = bigquery.Client()
 
-templateLoader = jinja2.FileSystemLoader(searchpath="./templates/")
-templateEnv = jinja2.Environment(loader=templateLoader)
-major_template = templateEnv.get_template("major.html")
-index_template = templateEnv.get_template("index.html")
-
-
-def project_json(name):
+def project_json(name: str) -> dict:
     print(f"Fetching '{name}'")
-    response = urllib.request.urlopen(PYPI_URL.format(name=name))
-    return json.loads(response.read())
+    try:
+        response = urllib.request.urlopen(PYPI_URL.format(name=name))
+        return json.loads(response.read())
+    except urllib.error.HTTPError as e:
+        print(f"Failed to fetch '{name}': {e}")
+        return {"info": {"classifiers": []}}
 
 
-def supports(major, classifiers, status):
+def supports(major: str, classifiers: set[str], status: Status) -> bool:
     return (f"Programming Language :: Python :: {major}" in classifiers) != (
         status.eol or status.dying
     )
 
 
-def fetch_top_projects():
+def fetch_top_projects() -> dict[str, list[str]]:
     print("Fetching top projects")
+    bq_client = bigquery.Client()
     projects = {
         major: [
             row["project"]
@@ -89,7 +87,7 @@ def fetch_top_projects():
     return projects
 
 
-def fetch_classifiers(names):
+def fetch_classifiers(names: set[str]) -> dict[str, set[str]]:
     print("Fetching classifiers")
     classifiers = {
         name: set(project_json(name)["info"]["classifiers"]) for name in names
@@ -99,7 +97,7 @@ def fetch_classifiers(names):
     return classifiers
 
 
-def write_local_file(filename, contents, content_type="text/html"):
+def write_local_file(filename: str, contents: str) -> None:
     print(f"Writing file '{filename}' locally")
     path = Path("docs") / filename
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -107,10 +105,15 @@ def write_local_file(filename, contents, content_type="text/html"):
         f.write(contents)
 
 
-if __name__ == "__main__":
+def main() -> None:
     updated = datetime.datetime.now()
     projects = fetch_top_projects()
     classifiers = fetch_classifiers(set().union(*projects.values()))
+
+    template_loader = jinja2.FileSystemLoader(searchpath="./templates/")
+    template_env = jinja2.Environment(loader=template_loader)
+    major_template = template_env.get_template("major.html")
+    index_template = template_env.get_template("index.html")
 
     for major, status in MAJORS.items():
         results = [
@@ -133,3 +136,7 @@ if __name__ == "__main__":
     write_local_file(
         "index.html", index_template.render(updated=updated, majors=MAJORS)
     )
+
+
+if __name__ == "__main__":
+    main()
