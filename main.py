@@ -58,8 +58,12 @@ LIMIT
 
 def project_json(name: str) -> dict:
     print(f"Fetching '{name}'")
-    response = urllib.request.urlopen(PYPI_URL.format(name=name))
-    return json.loads(response.read())
+    try:
+        response = urllib.request.urlopen(PYPI_URL.format(name=name))
+        return json.loads(response.read())
+    except urllib.error.HTTPError as e:
+        print(f"Failed to fetch '{name}': {e}")
+        return {"info": {"classifiers": []}}
 
 
 def supports(major: str, classifiers: set[str], status: Status) -> bool:
