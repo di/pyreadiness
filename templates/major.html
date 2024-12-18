@@ -55,13 +55,13 @@
       {%- set no_support_percent = (no_support / results|length * 100)|round(1) -%}
       {% if status.eol or status.dying %}
       <li>{{ do_support }} <span class="text-success">green</span> packages ({{ do_support_percent }}%) have dropped support for Python {{ major }};</li>
-      <li>{{ no_support }} <span class="text-muted">white</span> packages ({{ no_support_percent }}%) still support Python {{ major }}.</li>
+      <li>{{ no_support }} <span class="text-muted">uncolored</span> packages ({{ no_support_percent }}%) still support Python {{ major }}.</li>
       {% else %}
       <li>{{ do_support }} <span class="text-success">green</span> packages ({{ do_support_percent }}%) support Python {{ major }};</li>
-      <li>{{ no_support }} <span class="text-muted">white</span> packages ({{ no_support_percent }}%) don't explicitly support Python {{ major }} yet.</li>
+      <li>{{ no_support }} <span class="text-muted">uncolored</span> packages ({{ no_support_percent }}%) don't explicitly support Python {{ major }} yet.</li>
       {% endif %}
     </ol>
-    <h2>Package 'x' is white. What can I do?</h2>
+    <h2>Package 'x' is uncolored. What can I do?</h2>
       {% if status.eol or status.dying %}
       <p>There can be many reasons a package is still supporting Python {{ major }}:</p>
       <ul>
