@@ -1,21 +1,16 @@
 {% extends "base.html" %}
 {% block head %}
 <script type="text/javascript">
-  function toggle(button) {
-    let nextState = button.dataset.state === "Show" ? "Hide" : "Show";
+  function toggleVisibility(button, selector, labelText) {
+    let isShowing = button.dataset.state === "Show";
+    let nextState = isShowing ? "Hide" : "Show";
 
-    if (button.dataset.state === "Show") {
-      document.querySelectorAll(".btn-success").forEach((el) => {
-        el.classList.remove("hidden");
-      });
-    } else {
-      document.querySelectorAll(".btn-success").forEach((el) => {
-        el.classList.add("hidden");
-      });
-    }
+    document.querySelectorAll(selector + ":not(.toggle)").forEach((el) => {
+      el.classList.toggle("hidden", !isShowing);
+    });
 
     button.dataset.state = nextState;
-    button.textContent = nextState + ' Python {{ major }} {{ "unsupported" if status.eol else "compatible"}}';
+    button.textContent = nextState + ' Python {{ major }} ' + labelText;
 
     document.querySelectorAll(".list").forEach((list) => {
       let items = list.querySelectorAll(":not(.hidden)");
@@ -28,6 +23,14 @@
         items[items.length-1].classList.add("btn-last-child");
       }
     });
+  }
+
+  function toggleGreen(button) {
+    toggleVisibility(button, ".btn-success", '{{ "unsupported" if status.eol else "compatible"}}');
+  }
+
+  function toggleUncolored(button) {
+    toggleVisibility(button, ".btn-default", '{{ "supported" if status.eol else "incompatible"}}');
   }
 </script>
 {% endblock %}
@@ -92,11 +95,20 @@
 
 <div class="row">
   <div class="col-sm-4 col-md-4">
-    <a id="show-hide" data-state="Hide" class="btn btn-default btn-first-child btn-last-child" onclick="toggle(this)">
+    <a id="show-hide" data-state="Hide" class="btn btn-default btn-first-child btn-last-child toggle" onclick="toggleGreen(this)">
       {% if status.eol or status.dying %}
       Hide Python {{ major }} unsupported
       {% else %}
       Hide Python {{ major }} compatible
+      {% endif %}
+    </a>
+  </div>
+  <div class="col-sm-4 col-md-4">
+    <a id="show-hide" data-state="Hide" class="btn btn-default btn-first-child btn-last-child toggle" onclick="toggleUncolored(this)">
+      {% if status.eol or status.dying %}
+      Hide Python {{ major }} unsupported
+      {% else %}
+      Hide Python {{ major }} incompatible
       {% endif %}
     </a>
   </div>
