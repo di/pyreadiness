@@ -1,7 +1,7 @@
-import os
 import collections
-import datetime
+import datetime as dt
 import json
+import os
 import urllib.request
 from pathlib import Path
 
@@ -9,35 +9,88 @@ from google.cloud import bigquery
 import jinja2
 
 PYPI_URL = "https://pypi.org/pypi/{name}/json"
+PYTHON_RELEASES_URL = "https://peps.python.org/api/python-releases.json"
 
 Status = collections.namedtuple(
     "Status", ("dying", "eol", "dev", "alpha", "beta", "rc"), defaults=(False,) * 6
 )
 
-MAJORS = {
-    # version: (past_eol, alpha)
-    "3.15": Status(alpha=True),
-    "3.14": Status(),
-    "3.13": Status(),
-    "3.12": Status(),
-    "3.11": Status(),
-    "3.10": Status(),
-    "3.9": Status(eol=True),
-    "3.8": Status(eol=True),
-    "3.7": Status(eol=True),
-    "3.6": Status(eol=True),
-    "3.5": Status(eol=True),
-    "3.4": Status(eol=True),
-    "3.3": Status(eol=True),
-    "3.2": Status(eol=True),
-    "3.1": Status(eol=True),
-    "3.0": Status(eol=True),
-    "2.7": Status(eol=True),
-    "2.6": Status(eol=True),
-    "2.5": Status(eol=True),
-    "2.4": Status(eol=True),
-    "2.3": Status(eol=True),
-}
+
+def get_prerelease_phase(releases: list[dict]) -> str | None:
+    """Determine the current pre-release phase (dev, alpha, beta, rc) from releases."""
+    actual = [r for r in releases if r.get("state") == "actual"]
+    if not actual:
+        return "dev"
+    stage = actual[-1].get("stage", "").lower()
+    if "alpha" in stage:
+        return "alpha"
+    if "beta" in stage:
+        return "beta"
+    if "candidate" in stage:
+        return "rc"
+    return None  # Final release
+
+
+def build_majors() -> dict[str, Status]:
+    """Build the MAJORS dict from PEP API data."""
+    with urllib.request.urlopen(PYTHON_RELEASES_URL) as response:
+        data = json.loads(response.read())
+
+    metadata = data["metadata"]
+    releases = data["releases"]
+    majors = {}
+    today = dt.date.today()
+
+    for version, info in metadata.items():
+        # Include all 3.x and 2.3+
+        if version in ("1.6", "2.0", "2.1", "2.2"):
+            continue
+
+        status = info.get("status", "")
+        first_release = info.get("first_release", "")
+        end_of_life = info.get("end_of_life", "")
+
+        try:
+            release_date = dt.date.fromisoformat(first_release[:10])
+            is_unreleased = release_date > today
+        except (ValueError, TypeError):
+            is_unreleased = False
+
+        try:
+            eol_date = dt.date.fromisoformat(end_of_life[:10])
+        except (ValueError, TypeError):
+            eol_date = None
+
+        if status == "end-of-life":
+            majors[version] = Status(eol=True)
+        elif eol_date and eol_date <= today + dt.timedelta(days=274):  # ~9 months
+            majors[version] = Status(dying=True)
+        elif status == "feature" and is_unreleased:
+            phase = get_prerelease_phase(releases.get(version, []))
+            if phase == "dev":
+                majors[version] = Status(dev=True)
+            elif phase == "alpha":
+                majors[version] = Status(alpha=True)
+            elif phase == "beta":
+                majors[version] = Status(beta=True)
+            elif phase == "rc":
+                majors[version] = Status(rc=True)
+            else:
+                majors[version] = Status()
+        else:
+            majors[version] = Status()
+
+    return dict(
+        sorted(
+            majors.items(),
+            key=lambda x: [int(p) for p in x[0].split(".")],
+            reverse=True,
+        )
+    )
+
+
+MAJORS = build_majors()
+
 
 QUERY = """
 SELECT
@@ -108,7 +161,7 @@ def write_local_file(filename: str, contents: str) -> None:
 
 
 def main() -> None:
-    updated = datetime.datetime.now()
+    updated = dt.datetime.now()
     projects = fetch_top_projects()
     classifiers = fetch_classifiers(set().union(*projects.values()))
 
