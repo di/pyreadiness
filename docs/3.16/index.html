@@ -57,7 +57,7 @@
     });
 
     button.dataset.state = nextState;
-    button.textContent = nextState + ' Python 3.10 ' + labelText;
+    button.textContent = nextState + ' Python 3.16 ' + labelText;
 
     document.querySelectorAll(".list").forEach((list) => {
       let items = list.querySelectorAll(":not(.hidden)");
@@ -81,39 +81,39 @@
   }
 </script>
 
-  <title>Python 3.10 Readiness - Python 3.10 support table for most popular Python packages</title>
+  <title>Python 3.16 Readiness - Python 3.16 support table for most popular Python packages</title>
 </head>
 <body>
   <div class="container">
     
 <div class="row">
   <div class="col-sm-12 col-md-12">
-    <h1>Python 3.10 Readiness</h1>
-    <p class="text-center">Python 3.10 support graph for the 360 most popular Python packages!</p>
+    <h1>Python 3.16 Readiness</h1>
+    <p class="text-center">Python 3.16 support graph for the 360 most popular Python packages!</p>
     <h2>What is this about?</h2>
     <p>
-    Python 3.10 is <a href="https://devguide.python.org/devcycle/#end-of-life-branches">a version of Python that is nearing its End Of Life</a>. This site shows Python 3.10 support for the 360 most downloaded packages on <a href="https://pypi.org/">PyPI</a>:
+    Python 3.16 is <a href="https://devguide.python.org/devcycle/#end-of-life-branches">a currently supported version of Python</a>. This site shows Python 3.16 support for the 360 most downloaded packages on <a href="https://pypi.org/">PyPI</a>:
     </p>
     <ol>
-      <li>69 <span class="text-success">green</span> packages (19.2%) have dropped support for Python 3.10;</li>
-      <li>291 <span class="text-muted">uncolored</span> packages (80.8%) still support Python 3.10.</li>
+      <li>0 <span class="text-success">green</span> packages (0.0%) support Python 3.16;</li>
+      <li>360 <span class="text-muted">uncolored</span> packages (100.0%) don't explicitly support Python 3.16 yet.</li>
       
     </ol>
     <h2>Package 'x' is uncolored. What can I do?</h2>
       
-      <p>There can be many reasons a package is still supporting Python 3.10:</p>
+      <p>There can be many reasons a package is not explicitly supporting Python 3.16:</p>
       <ul>
         <li>
-          <p>If you are package maintainer, it's time to start dropping support (if you haven't already). <strong>Here is an in-depth guide to <a href="https://packaging.python.org/guides/dropping-older-python-versions/">Dropping support for older Python versions</a></strong>. If you are not able to give the time needed, please seek for help from the community.</p>
+          <p>If you are package maintainer, it's time to start supporting Python 3.16. If you are not able to give the time needed, please seek for help from the community.</p>
         </li>
         <li>
-          <p>If you are user of the package, send a friendly note to the package maintainer. Or fork it, and send a pull request to help move the project towards dropping Python 3.10 support.</p>
+          <p>If you are user of the package, send a friendly note to the package maintainer. Or fork it, and send a pull request to help move the project towards Python 3.16 support, by adding the classifier and ensuring the project is tested against Python 3.16.</p>
         </li>
       </ul>
       
-    <h2>How do you identify Python 3.10 support?</h2>
+    <h2>How do you identify Python 3.16 support?</h2>
     <p>
-      We look for the <code>Programming Language :: Python :: 3.10</code> classifier on the latest release of the project, via <a href="https://warehouse.readthedocs.io/api-reference/json/">PyPI's JSON API</a>.
+      We look for the <code>Programming Language :: Python :: 3.16</code> classifier on the latest release of the project, via <a href="https://warehouse.readthedocs.io/api-reference/json/">PyPI's JSON API</a>.
     </p>
   </div>
 </div>
@@ -122,14 +122,14 @@
   <div class="col-sm-4 col-md-4">
     <a id="show-hide" data-state="Hide" class="btn btn-default btn-first-child btn-last-child toggle" onclick="toggleGreen(this)">
       
-      Hide Python 3.10 unsupported
+      Hide Python 3.16 compatible
       
     </a>
   </div>
   <div class="col-sm-4 col-md-4">
     <a id="show-hide" data-state="Hide" class="btn btn-default btn-first-child btn-last-child toggle" onclick="toggleUncolored(this)">
       
-      Hide Python 3.10 unsupported
+      Hide Python 3.16 incompatible
       
     </a>
   </div>
@@ -161,8 +161,8 @@
         packaging ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/setuptools" style="display: inline-block;">
-        setuptools ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/setuptools" style="display: inline-block;">
+        setuptools ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/certifi" style="display: inline-block;">
@@ -197,8 +197,8 @@
         python-dateutil ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/six" style="display: inline-block;">
-        six ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/six" style="display: inline-block;">
+        six ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/grpcio-status" style="display: inline-block;">
@@ -225,8 +225,8 @@
         pyyaml ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/numpy" style="display: inline-block;">
-        numpy ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/numpy" style="display: inline-block;">
+        numpy ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/pycparser" style="display: inline-block;">
@@ -245,16 +245,16 @@
         pydantic ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/click" style="display: inline-block;">
-        click ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/click" style="display: inline-block;">
+        click ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/protobuf" style="display: inline-block;">
         protobuf ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/pandas" style="display: inline-block;">
-        pandas ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/pandas" style="display: inline-block;">
+        pandas ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/pluggy" style="display: inline-block;">
@@ -277,8 +277,8 @@
         anyio ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/markupsafe" style="display: inline-block;">
-        markupsafe ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/markupsafe" style="display: inline-block;">
+        markupsafe ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/jmespath" style="display: inline-block;">
@@ -305,16 +305,16 @@
         annotated-types ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/jinja2" style="display: inline-block;">
-        jinja2 ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/jinja2" style="display: inline-block;">
+        jinja2 ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/pathspec" style="display: inline-block;">
         pathspec ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/importlib-metadata" style="display: inline-block;">
-        importlib-metadata ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/importlib-metadata" style="display: inline-block;">
+        importlib-metadata ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/rsa" style="display: inline-block;">
@@ -349,8 +349,8 @@
         typing-inspection ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/zipp" style="display: inline-block;">
-        zipp ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/zipp" style="display: inline-block;">
+        zipp ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/pyasn1" style="display: inline-block;">
@@ -389,8 +389,8 @@
         rich ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/tzdata" style="display: inline-block;">
-        tzdata ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/tzdata" style="display: inline-block;">
+        tzdata ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/google-api-core" style="display: inline-block;">
@@ -421,8 +421,8 @@
         frozenlist ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/tomli" style="display: inline-block;">
-        tomli ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/tomli" style="display: inline-block;">
+        tomli ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/propcache" style="display: inline-block;">
@@ -441,8 +441,8 @@
         pyasn1-modules ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/aiosignal" style="display: inline-block;">
-        aiosignal ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/aiosignal" style="display: inline-block;">
+        aiosignal ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/yandexcloud" style="display: inline-block;">
@@ -465,12 +465,12 @@
         wrapt ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/trove-classifiers" style="display: inline-block;">
-        trove-classifiers ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/trove-classifiers" style="display: inline-block;">
+        trove-classifiers ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/scipy" style="display: inline-block;">
-        scipy ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/scipy" style="display: inline-block;">
+        scipy ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/sqlalchemy" style="display: inline-block;">
@@ -493,16 +493,16 @@
         mdurl ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/psutil" style="display: inline-block;">
-        psutil ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/psutil" style="display: inline-block;">
+        psutil ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/google-genai" style="display: inline-block;">
         google-genai ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/grpcio-tools" style="display: inline-block;">
-        grpcio-tools ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/grpcio-tools" style="display: inline-block;">
+        grpcio-tools ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/uvicorn" style="display: inline-block;">
@@ -577,8 +577,8 @@
         websocket-client ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/beautifulsoup4" style="display: inline-block;">
-        beautifulsoup4 ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/beautifulsoup4" style="display: inline-block;">
+        beautifulsoup4 ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/langchain" style="display: inline-block;">
@@ -597,8 +597,8 @@
         shellingham ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/sniffio" style="display: inline-block;">
-        sniffio ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/sniffio" style="display: inline-block;">
+        sniffio ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/hatchling" style="display: inline-block;">
@@ -644,16 +644,16 @@
     </div>
     <div class="list">
     
-      <a class="btn btn-success btn-first-child " href="https://pypi.org/project/exceptiongroup" style="display: inline-block;">
-        exceptiongroup ✓
+      <a class="btn btn-default btn-first-child " href="https://pypi.org/project/exceptiongroup" style="display: inline-block;">
+        exceptiongroup ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/proto-plus" style="display: inline-block;">
         proto-plus ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/flask" style="display: inline-block;">
-        flask ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/flask" style="display: inline-block;">
+        flask ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/typer" style="display: inline-block;">
@@ -672,8 +672,8 @@
         websockets ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/werkzeug" style="display: inline-block;">
-        werkzeug ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/werkzeug" style="display: inline-block;">
+        werkzeug ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/mypy-extensions" style="display: inline-block;">
@@ -692,8 +692,8 @@
         psycopg2-binary ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/msgpack" style="display: inline-block;">
-        msgpack ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/msgpack" style="display: inline-block;">
+        msgpack ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/isodate" style="display: inline-block;">
@@ -708,8 +708,8 @@
         pydantic-settings ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/sortedcontainers" style="display: inline-block;">
-        sortedcontainers ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/sortedcontainers" style="display: inline-block;">
+        sortedcontainers ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/opentelemetry-exporter-otlp" style="display: inline-block;">
@@ -724,8 +724,8 @@
         opentelemetry-exporter-otlp-proto-common ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/networkx" style="display: inline-block;">
-        networkx ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/networkx" style="display: inline-block;">
+        networkx ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/decorator" style="display: inline-block;">
@@ -748,8 +748,8 @@
         azure-identity ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/scikit-learn" style="display: inline-block;">
-        scikit-learn ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/scikit-learn" style="display: inline-block;">
+        scikit-learn ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/azure-core" style="display: inline-block;">
@@ -792,8 +792,8 @@
         redis ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/keyring" style="display: inline-block;">
-        keyring ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/keyring" style="display: inline-block;">
+        keyring ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/matplotlib" style="display: inline-block;">
@@ -804,8 +804,8 @@
         google-cloud-aiplatform ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/async-timeout" style="display: inline-block;">
-        async-timeout ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/async-timeout" style="display: inline-block;">
+        async-timeout ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/ruff" style="display: inline-block;">
@@ -828,40 +828,40 @@
         threadpoolctl ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/itsdangerous" style="display: inline-block;">
-        itsdangerous ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/itsdangerous" style="display: inline-block;">
+        itsdangerous ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/ruamel-yaml" style="display: inline-block;">
         ruamel-yaml ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/pexpect" style="display: inline-block;">
-        pexpect ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/pexpect" style="display: inline-block;">
+        pexpect ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/jiter" style="display: inline-block;">
         jiter ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/ptyprocess" style="display: inline-block;">
-        ptyprocess ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/ptyprocess" style="display: inline-block;">
+        ptyprocess ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/asn1crypto" style="display: inline-block;">
         asn1crypto ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/types-requests" style="display: inline-block;">
-        types-requests ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/types-requests" style="display: inline-block;">
+        types-requests ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/alembic" style="display: inline-block;">
         alembic ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/jaraco-classes" style="display: inline-block;">
-        jaraco-classes ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/jaraco-classes" style="display: inline-block;">
+        jaraco-classes ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/secretstorage" style="display: inline-block;">
@@ -872,8 +872,8 @@
         smmap ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/jeepney" style="display: inline-block;">
-        jeepney ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/jeepney" style="display: inline-block;">
+        jeepney ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/zstandard" style="display: inline-block;">
@@ -900,8 +900,8 @@
         prompt-toolkit ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/google-crc32c" style="display: inline-block;">
-        google-crc32c ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/google-crc32c" style="display: inline-block;">
+        google-crc32c ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/google-resumable-media" style="display: inline-block;">
@@ -916,28 +916,28 @@
         opentelemetry-instrumentation ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/jaraco-context" style="display: inline-block;">
-        jaraco-context ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/jaraco-context" style="display: inline-block;">
+        jaraco-context ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/pytest-cov" style="display: inline-block;">
         pytest-cov ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/jaraco-functools" style="display: inline-block;">
-        jaraco-functools ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/jaraco-functools" style="display: inline-block;">
+        jaraco-functools ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/blinker" style="display: inline-block;">
-        blinker ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/blinker" style="display: inline-block;">
+        blinker ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/orjson" style="display: inline-block;">
         orjson ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/defusedxml" style="display: inline-block;">
-        defusedxml ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/defusedxml" style="display: inline-block;">
+        defusedxml ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/paramiko" style="display: inline-block;">
@@ -948,8 +948,8 @@
         tzlocal ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/contourpy" style="display: inline-block;">
-        contourpy ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/contourpy" style="display: inline-block;">
+        contourpy ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/kubernetes" style="display: inline-block;">
@@ -980,8 +980,8 @@
         backoff ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/pyproject-hooks" style="display: inline-block;">
-        pyproject-hooks ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/pyproject-hooks" style="display: inline-block;">
+        pyproject-hooks ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/opensearch-py" style="display: inline-block;">
@@ -1036,12 +1036,12 @@
         azure-storage-blob ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/httplib2" style="display: inline-block;">
-        httplib2 ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/httplib2" style="display: inline-block;">
+        httplib2 ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/uritemplate" style="display: inline-block;">
-        uritemplate ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/uritemplate" style="display: inline-block;">
+        uritemplate ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/docker" style="display: inline-block;">
@@ -1143,8 +1143,8 @@
         xmltodict ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/ipython" style="display: inline-block;">
-        ipython ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/ipython" style="display: inline-block;">
+        ipython ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/py4j" style="display: inline-block;">
@@ -1187,12 +1187,12 @@
         black ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/events" style="display: inline-block;">
-        events ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/events" style="display: inline-block;">
+        events ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/traitlets" style="display: inline-block;">
-        traitlets ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/traitlets" style="display: inline-block;">
+        traitlets ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/opentelemetry-util-http" style="display: inline-block;">
@@ -1203,12 +1203,12 @@
         litellm ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/pre-commit" style="display: inline-block;">
-        pre-commit ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/pre-commit" style="display: inline-block;">
+        pre-commit ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/importlib-resources" style="display: inline-block;">
-        importlib-resources ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/importlib-resources" style="display: inline-block;">
+        importlib-resources ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/jedi" style="display: inline-block;">
@@ -1231,20 +1231,20 @@
         dbt-core ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/tiktoken" style="display: inline-block;">
-        tiktoken ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/tiktoken" style="display: inline-block;">
+        tiktoken ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/identify" style="display: inline-block;">
-        identify ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/identify" style="display: inline-block;">
+        identify ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/mcp" style="display: inline-block;">
         mcp ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/toml" style="display: inline-block;">
-        toml ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/toml" style="display: inline-block;">
+        toml ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/asttokens" style="display: inline-block;">
@@ -1263,24 +1263,24 @@
         python-json-logger ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/cfgv" style="display: inline-block;">
-        cfgv ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/cfgv" style="display: inline-block;">
+        cfgv ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/nest-asyncio" style="display: inline-block;">
         nest-asyncio ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/httptools" style="display: inline-block;">
-        httptools ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/httptools" style="display: inline-block;">
+        httptools ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/ply" style="display: inline-block;">
-        ply ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/ply" style="display: inline-block;">
+        ply ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/pandas-stubs" style="display: inline-block;">
-        pandas-stubs ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/pandas-stubs" style="display: inline-block;">
+        pandas-stubs ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/langchain-core" style="display: inline-block;">
@@ -1295,8 +1295,8 @@
         grpc-google-iam-v1 ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/durationpy" style="display: inline-block;">
-        durationpy ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/durationpy" style="display: inline-block;">
+        durationpy ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/markdown" style="display: inline-block;">
@@ -1331,16 +1331,16 @@
         pymongo ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/webencodings" style="display: inline-block;">
-        webencodings ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/webencodings" style="display: inline-block;">
+        webencodings ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/execnet" style="display: inline-block;">
         execnet ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/requests-file" style="display: inline-block;">
-        requests-file ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/requests-file" style="display: inline-block;">
+        requests-file ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/cachecontrol" style="display: inline-block;">
@@ -1359,8 +1359,8 @@
         xxhash ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/aioitertools" style="display: inline-block;">
-        aioitertools ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/aioitertools" style="display: inline-block;">
+        aioitertools ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/typing-inspect" style="display: inline-block;">
@@ -1371,24 +1371,24 @@
         isort ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/opensearch-protobufs" style="display: inline-block;">
-        opensearch-protobufs ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/opensearch-protobufs" style="display: inline-block;">
+        opensearch-protobufs ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/watchdog" style="display: inline-block;">
         watchdog ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/pymysql" style="display: inline-block;">
-        pymysql ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/pymysql" style="display: inline-block;">
+        pymysql ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/termcolor" style="display: inline-block;">
         termcolor ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/jsonpatch" style="display: inline-block;">
-        jsonpatch ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/jsonpatch" style="display: inline-block;">
+        jsonpatch ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/authlib" style="display: inline-block;">
@@ -1447,8 +1447,8 @@
         snowflake-sqlalchemy ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/tree-sitter" style="display: inline-block;">
-        tree-sitter ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/tree-sitter" style="display: inline-block;">
+        tree-sitter ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/pytest-mock" style="display: inline-block;">
@@ -1483,8 +1483,8 @@
         lz4 ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/sphinx" style="display: inline-block;">
-        sphinx ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/sphinx" style="display: inline-block;">
+        sphinx ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/pendulum" style="display: inline-block;">
@@ -1499,8 +1499,8 @@
         torch ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/rich-toolkit" style="display: inline-block;">
-        rich-toolkit ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/rich-toolkit" style="display: inline-block;">
+        rich-toolkit ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/google-cloud-speech" style="display: inline-block;">
@@ -1555,20 +1555,20 @@
         smart-open ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/rfc3339-validator" style="display: inline-block;">
-        rfc3339-validator ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/rfc3339-validator" style="display: inline-block;">
+        rfc3339-validator ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/pygithub" style="display: inline-block;">
         pygithub ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/datadog" style="display: inline-block;">
-        datadog ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/datadog" style="display: inline-block;">
+        datadog ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/azure-common" style="display: inline-block;">
-        azure-common ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/azure-common" style="display: inline-block;">
+        azure-common ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/semver" style="display: inline-block;">
@@ -1595,8 +1595,8 @@
         google-cloud-language ✗
       </a>
     
-      <a class="btn btn-success  " href="https://pypi.org/project/jupyter-core" style="display: inline-block;">
-        jupyter-core ✓
+      <a class="btn btn-default  " href="https://pypi.org/project/jupyter-core" style="display: inline-block;">
+        jupyter-core ✗
       </a>
     
       <a class="btn btn-default  " href="https://pypi.org/project/deepdiff" style="display: inline-block;">
@@ -1615,8 +1615,8 @@
         google-cloud-dataform ✗
       </a>
     
-      <a class="btn btn-success  btn-last-child" href="https://pypi.org/project/langsmith" style="display: inline-block;">
-        langsmith ✓
+      <a class="btn btn-default  btn-last-child" href="https://pypi.org/project/langsmith" style="display: inline-block;">
+        langsmith ✗
       </a>
     
     </div>
