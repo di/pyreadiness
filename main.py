@@ -47,6 +47,9 @@ def build_majors() -> dict[str, Status]:
             continue
 
         status = info.get("status", "")
+        if status == "planned":
+            continue
+
         first_release = info.get("first_release", "")
         end_of_life = info.get("end_of_life", "")
 
@@ -65,6 +68,8 @@ def build_majors() -> dict[str, Status]:
             majors[version] = Status(eol=True)
         elif eol_date and eol_date <= today + dt.timedelta(days=274):  # ~9 months
             majors[version] = Status(dying=True)
+        elif status == "prerelease":
+            majors[version] = Status(dev=True)
         elif status == "feature" and is_unreleased:
             phase = get_prerelease_phase(releases.get(version, []))
             if phase == "dev":
